@@ -1,31 +1,47 @@
 import math
 
-def mach1():
-    return 2 * math.pi * ((15/2) ** 2)
+def area_circle(diameter: float, count=1) -> float:
 
-def mach2():
-    return (3/4) * (20 ** 2)
+    radius = diameter / 2
+    return count * math.pi * radius ** 2
 
-def mach3():
-    return 18 ** 2
+def area_equelateral_triangle(side: float) -> float:
 
-def auto_compare():
-    mach1Area = mach1()
-    mach2Area = mach2()
-    mach3Area = mach3()
-    mach1Eff = mach1Area / 20
-    mach2Eff = mach2Area / 20 
-    mach3Eff = mach3Area / 18
-    print(f"A1 eff: {mach1Eff}\nA2 eff: {mach2Eff}\nA3 eff: {mach3Eff}")
-    if(mach1Eff > mach2Eff):
-        if(mach2Eff > mach3Eff):
-            print("The first Automatron is most efficient!")
-        elif(mach3Eff > mach1Eff):
-            print("The third Automatron is most efficient!")
-    elif mach2Eff > mach1Eff:
-        if(mach1Eff > mach3Eff):
-            print("The second Automatron is most efficient!")
-        elif(mach3Eff > mach2Eff):
-            print("The third Automatron is most efficient!")
+    return (math.sqrt(3) / 4) * side ** 2 
 
-auto_compare()
+def area_square(side: float) -> float:
+
+    return side ** 2
+
+def efficiency(area: float, dough_units: float) -> float:
+
+    return area / dough_units
+
+def main():
+
+    auto1_area = area_circle(15, 2)
+    auto1_efficiency = efficiency(auto1_area, 20)
+
+    auto2_area = area_equelateral_triangle(20)
+    auto2_efficiency = efficiency(auto2_area, 20)
+
+    auto3_area = area_square(18)
+    auto3_efficiency = efficiency(auto3_area, 18)
+
+    print(f"Automatron 1 Efficiency: {auto1_efficiency:.2f} sq.in/unit")
+    print(f"Automatron 2 Efficiency: {auto2_efficiency:.2f} sq.in/unit")
+    print(f"Automatron 3 Efficiency: {auto3_efficiency:.2f} sq.in/unit")
+
+    efficiencies = {
+        "Automatron 1" : auto1_efficiency,
+        "Automatron 2" : auto2_efficiency,
+        "Automatron 3" : auto3_efficiency
+    }
+
+    best = max(efficiencies, key=efficiencies.get)
+
+    print(f'The most efficient is {best}.')
+
+if __name__ == '__main__':
+
+    main()
